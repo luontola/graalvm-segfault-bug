@@ -1,0 +1,333 @@
++ export GRAAL_HOME=/Users/esko/Downloads/graalvm-ce-java11-22.1.0-dev/Contents/Home
++ GRAAL_HOME=/Users/esko/Downloads/graalvm-ce-java11-22.1.0-dev/Contents/Home
++ mvn clean package
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building graalvm-segfault-bug 0.1.0
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ graalvm-segfault-bug ---
+[INFO] Deleting /Users/esko/devel/graalvm-segfault-bug/target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ graalvm-segfault-bug ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 6 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ graalvm-segfault-bug ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file to /Users/esko/devel/graalvm-segfault-bug/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ graalvm-segfault-bug ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /Users/esko/devel/graalvm-segfault-bug/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ graalvm-segfault-bug ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ graalvm-segfault-bug ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:3.1.0:jar (default-jar) @ graalvm-segfault-bug ---
+[INFO] Building jar: /Users/esko/devel/graalvm-segfault-bug/target/graalvm-segfault-bug-0.1.0.jar
+[INFO] 
+[INFO] --- maven-shade-plugin:3.1.0:shade (default) @ graalvm-segfault-bug ---
+[INFO] Including net.snowflake:snowflake-jdbc:jar:3.13.12 in the shaded jar.
+[INFO] Replacing original artifact with shaded artifact.
+[INFO] Replacing /Users/esko/devel/graalvm-segfault-bug/target/graalvm-segfault-bug-0.1.0.jar with /Users/esko/devel/graalvm-segfault-bug/target/graalvm-segfault-bug-0.1.0-shaded.jar
+[INFO] Dependency-reduced POM written at: /Users/esko/devel/graalvm-segfault-bug/dependency-reduced-pom.xml
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4.027 s
+[INFO] Finished at: 2021-12-22T01:42:43+02:00
+[INFO] Final Memory: 13M/60M
+[INFO] ------------------------------------------------------------------------
++ zip target/graalvm-segfault-bug-0.1.0.jar -d META-INF/services/java.nio.file.spi.FileTypeDetector
+deleting: META-INF/services/java.nio.file.spi.FileTypeDetector
++ : Running with GraalVM
++ /Users/esko/Downloads/graalvm-ce-java11-22.1.0-dev/Contents/Home/bin/java -jar target/graalvm-segfault-bug-0.1.0.jar
+com.snowflake.client.jdbc.SnowflakeDriver@533ddba
++ : Compile with native image
++ /Users/esko/Downloads/graalvm-ce-java11-22.1.0-dev/Contents/Home/bin/native-image --no-fallback --report-unsupported-elements-at-runtime --allow-incomplete-classpath -H:+ReportExceptionStackTraces -jar target/graalvm-segfault-bug-0.1.0.jar target/graalvm-segfault-bug
+========================================================================================================================
+GraalVM Native Image: Generating 'target/graalvm-segfault-bug'...
+========================================================================================================================
+[1/7] Initializing...                                                                                    (7,3s @ 0,16GB)
+ Version info: 'GraalVM 22.1.0-dev Java 11 CE'
+[2/7] Performing analysis...  [****************]                                                        (24,9s @ 2,97GB)
+   6 748 (91,72%) of  7 357 classes reachable
+  10 149 (66,99%) of 15 149 fields reachable
+  30 160 (80,97%) of 37 250 methods reachable
+     319 classes,     3 fields, and   546 methods registered for reflection
+      68 classes,    89 fields, and    59 methods registered for JNI access
+[3/7] Building universe...                                                                               (1,9s @ 3,40GB)
+[4/7] Parsing methods...      [*]                                                                        (1,9s @ 4,00GB)
+[5/7] Inlining methods...     [*****]                                                                    (4,6s @ 2,26GB)
+[6/7] Compiling methods...    [****]                                                                    (18,4s @ 3,27GB)
+[7/7] Creating image...                                                                                  (2,7s @ 4,03GB)
+  11,90MB (44,35%) for code area:   18 660 compilation units
+  12,87MB (47,96%) for image heap:   4 522 classes and 183 506 objects
+   2,06MB ( 7,69%) for other data
+  26,83MB in total
+------------------------------------------------------------------------------------------------------------------------
+Top 10 packages in code area:                               Top 10 object types in image heap:
+   1,38MB sun.security.ssl                                     4,13MB byte[] for general heap data
+ 821,84KB java.util                                            1,54MB java.lang.Class
+ 658,47KB com.sun.crypto.provider                              1,42MB java.lang.String
+ 483,61KB sun.security.x509                                    1,09MB byte[] for java.lang.String
+ 306,05KB java.lang                                          419,81KB java.util.HashMap$Node
+ 290,66KB com.oracle.svm.core.reflect                        276,27KB java.lang.String[]
+ 277,52KB java.net                                           264,55KB java.util.HashMap$Node[]
+ 273,51KB sun.security.provider.certpath                     252,70KB com.oracle.svm.core.util.LazyFinalReference
+ 268,68KB sun.security.provider                              202,03KB c.o.s.c.h.DynamicHub$$Lambda$~31d9af6a7fe68cfc2a1f
+ 267,77KB java.io                                            197,86KB java.util.concurrent.ConcurrentHashMap$Node
+      ... 250 additional packages                                 ... 1615 additional object types
+                                           (use GraalVM Dashboard to see all)
+------------------------------------------------------------------------------------------------------------------------
+                        6,1s (9,3% of total time) in 27 GCs | Peak RSS: 5,80GB | CPU load: 5,16
+------------------------------------------------------------------------------------------------------------------------
+Produced artifacts:
+ /Users/esko/devel/graalvm-segfault-bug/target/graalvm-segfault-bug (executable)
+ /Users/esko/devel/graalvm-segfault-bug/target/graalvm-segfault-bug.build_artifacts.txt
+========================================================================================================================
+Finished generating 'target/graalvm-segfault-bug' in 1m 4s.
++ : Running native app
++ ./target/graalvm-segfault-bug
+
+[ [ SubstrateSegfaultHandler caught a segfault in thread 0x00007f7eae004300 ] ]
+siginfo: si_signo: 10, si_code: 2, si_addr: 0x000000010db34e60
+
+General purpose register values:
+  RAX 0x0000000000334d18 is an unknown value
+  RBX 0x000000010db34d18 points into the image heap (read-only references)
+    hub=java.lang.Class
+  RCX 0x0000000000000148 is an unknown value
+  RDX 0x000000010d800000 is the heap base
+  RBP 0x000000010ddc7728 points into the image heap (read-only relocatables)
+    hub=java.lang.Class
+  RSI 0x000000010e2a1f28 points into the image heap (writable references)
+    hub=sun.misc.Unsafe
+  RDI 0x0000000000000000 
+  RSP 0x00007ff7b4275e90 points into the stack for thread 0x00007f7eae004300
+  R8  0x000000010ddc7728 points into the image heap (read-only relocatables)
+    hub=java.lang.Class
+  R9  0x0000000000000001 is an unknown value
+  R10 0x0000000000000001 is an unknown value
+  R11 0x000000010dfef6f0 points into the image heap (writable references)
+    hub=java.util.concurrent.ConcurrentHashMap
+  R12 0x0000000000000000 
+  R13 0x000000000000001e is an unknown value
+  R14 0x000000010d800000 is the heap base
+  R15 0x00007f7eae004300 is a thread
+  EFL 0x0000000000010206 is an unknown value
+  RIP 0x000000010bd20b73 is an unknown value
+  
+Printing Instructions (ip=0x000000010bd20b73):
+  0x000000010bd20b53: 0x8b 0x44 0x06 0x10 0x48 0x8b 0xc8 0x48 0x8b 0x42 0x10 0x48 0x8b 0x7a 0x20 0x49
+  0x000000010bd20b63: 0x8d 0x14 0x3e 0x49 0x8d 0x1c 0x06 0x48 0x85 0xc0 0x0f 0x84 0x00 0x01 0x00 0x00
+  0x000000010bd20b73: 0x48 0x89 0x3c 0x0b 0xf0 0x83 0x04 0x24 0x00 0x48 0x8b 0x03 0x48 0xf7 0xc0 0x02
+  0x000000010bd20b83: 0x00 0x00 0x00 0x0f 0x85 0x48 0x00 0x00 0x00 0x41 0x83 0x6f 0x10 0x01 0x0f 0x8e
+
+Top of stack (sp=0x00007ff7b4275e90):
+  0x00007ff7b4275e90: 0x000000010ddc9528 0x000000010bd4bc02
+  0x00007ff7b4275ea0: 0x000000010e00df70 0x000000010c29416c
+  0x00007ff7b4275eb0: 0x000000010d800000 0x000000010e610b98
+  0x00007ff7b4275ec0: 0x000000010ddc5388 0x000000010df883b0
+  0x00007ff7b4275ed0: 0x000000010e2a1f28 0x000000010c294405
+  0x00007ff7b4275ee0: 0x000000000e6103b8 0x000000010c2939fb
+  0x00007ff7b4275ef0: 0x0000000000000000 0x000000010c1915ea
+  0x00007ff7b4275f00: 0x00007ff806d8da08 0x000000010e0720f8
+  0x00007ff7b4275f10: 0x000000010df51010 0x000000010bcad96b
+  0x00007ff7b4275f20: 0x0000000000000000 0x000000010bcacb11
+  0x00007ff7b4275f30: 0x0000000000000000 0x0000000000000000
+  0x00007ff7b4275f40: 0x000000010e236ed0 0x000000010e28ac30
+  0x00007ff7b4275f50: 0x0000000000a8ac30 0x000000010e236930
+  0x00007ff7b4275f60: 0x000000010df89f68 0x000000010ddc9168
+  0x00007ff7b4275f70: 0x000000010e04b2b8 0x0000000000000001
+  0x00007ff7b4275f80: 0x3bb3fbedeb08b281 0xfab4f9ec45e715b5
+  0x00007ff7b4275f90: 0x2400e07eedc98608 0x3f31ba32caf12846
+  0x00007ff7b4275fa0: 0x1f2aeb6fda6d39ab 0x1b2b1e81c4c439e0
+  0x00007ff7b4275fb0: 0xc9c966764238f404 0xf5c09274eef1c838
+  0x00007ff7b4275fc0: 0xc547d2c4488b83e0 0xdfef2761dbeed28f
+  0x00007ff7b4275fd0: 0x8bf19272dce738eb 0x1b315a4c2738ae4e
+  0x00007ff7b4275fe0: 0x96158d908711c962 0xb8dd5a5996e8a499
+  0x00007ff7b4275ff0: 0xe6321538f918fe57 0x39dd325922f62cd8
+  0x00007ff7b4276000: 0xece8157816cf45e2 0x1aa8f5a59365516f
+  0x00007ff7b4276010: 0x749a49adb4f727d8 0xb29faf9528c8c38b
+  0x00007ff7b4276020: 0x0000000000000002 0x0000000000000000
+  0x00007ff7b4276030: 0x0000000000000000 0x0000000000000000
+  0x00007ff7b4276040: 0x0000000000000000 0x0000000000000000
+  0x00007ff7b4276050: 0x000000003f333333 0x0000000000000000
+  0x00007ff7b4276060: 0x000000003f59999a 0x0000000000000000
+  0x00007ff7b4276070: 0x0000000000000000 0x0000000000000000
+  0x00007ff7b4276080: 0x00007ff7b4276228 0x000000010bcfe542
+
+Top frame info:
+  TotalFrameSize in CodeInfoTable 16
+  
+Threads:
+  0x00007f7eae004300 STATUS_IN_JAVA (PREVENT_VM_FROM_REACHING_SAFEPOINT) "main" - 0x000000010df89f68, stack(0x00007ff7b3a77000,0x00007ff7b4277000)
+  
+VM thread locals for the failing thread 0x00007f7eae004300:
+  0 (8 bytes): JNIThreadLocalEnvironment.jniFunctions = (bytes) 
+    0x00007f7eae004300: 0x000000010dcfb010
+  8 (8 bytes): StackOverflowCheckImpl.stackBoundaryTL = (Word) 1 (0x0000000000000001)
+  16 (4 bytes): Safepoint.safepointRequested = (int) 2147460371 (0x7fffa513)
+  20 (4 bytes): StatusSupport.statusTL = (int) 1 (0x00000001)
+  24 (32 bytes): ThreadLocalAllocation.regularTLAB = (bytes) 
+    0x00007f7eae004318: 0x000000010e600000 0x000000010e700000
+    0x00007f7eae004328: 0x000000010e610be0 0x0000000000000000
+  56 (8 bytes): JavaThreads.currentThread = (Object) java.lang.Thread (0x000000010df89f68)
+  64 (8 bytes): JavaFrameAnchors.lastAnchor = (Word) 0 (0x0000000000000000)
+  72 (8 bytes): ExceptionUnwind.currentException = (Object) null
+  80 (8 bytes): IdentityHashCodeSupport.hashCodeGeneratorTL = (Object) java.util.SplittableRandom (0x000000010e602cb8)
+  88 (8 bytes): IsolatedCompileClient.currentClient = (Object) null
+  96 (8 bytes): IsolatedCompileContext.currentContext = (Object) null
+  104 (8 bytes): JNIObjectHandles.handles = (Object) com.oracle.svm.core.handles.ThreadLocalHandles (0x000000010e601180)
+  112 (8 bytes): JNIThreadLocalPendingException.pendingException = (Object) null
+  120 (8 bytes): JNIThreadLocalPinnedObjects.pinnedObjectsListHead = (Object) null
+  128 (8 bytes): JNIThreadOwnedMonitors.ownedMonitors = (Object) null
+  136 (8 bytes): NoAllocationVerifier.openVerifiers = (Object) null
+  144 (8 bytes): ThreadingSupportImpl.activeTimer = (Object) null
+  152 (8 bytes): SubstrateDiagnostics.threadOnlyAttachedForCrashHandler = (bytes) 
+    0x00007f7eae004398: 0x0000000000000000
+  160 (8 bytes): VMThreads.IsolateTL = (Word) 4521459712 (0x000000010d800000)
+  168 (8 bytes): VMThreads.OSThreadHandleTL = (Word) 4638500352 (0x000000011479e600)
+  176 (8 bytes): VMThreads.OSThreadIdTL = (Word) 4638500352 (0x000000011479e600)
+  184 (8 bytes): VMThreads.StackBase = (Word) 140701856133120 (0x00007ff7b4277000)
+  192 (8 bytes): VMThreads.StackEnd = (Word) 140701847744512 (0x00007ff7b3a77000)
+  200 (8 bytes): VMThreads.nextTL = (Word) 0 (0x0000000000000000)
+  208 (8 bytes): VMThreads.unalignedIsolateThreadMemoryTL = (Word) 140182061859584 (0x00007f7eae004300)
+  216 (4 bytes): ActionOnExitSafepointSupport.actionTL = (int) 0 (0x00000000)
+  220 (4 bytes): ActionOnTransitionToJavaSupport.actionTL = (int) 0 (0x00000000)
+  224 (4 bytes): ImplicitExceptions.implicitExceptionsAreFatal = (int) 0 (0x00000000)
+  228 (4 bytes): StackOverflowCheckImpl.yellowZoneStateTL = (int) 2130640638 (0x7efefefe)
+  232 (4 bytes): StatusSupport.safepointBehaviorTL = (int) 1 (0x00000001)
+  236 (4 bytes): ThreadingSupportImpl.currentPauseDepth = (int) 0 (0x00000000)
+  
+No VMOperation in progress
+
+The 15 most recent VM operation status changes (oldest first):
+  
+Counters:
+  
+Java frame anchors for the failing thread 0x00007f7eae004300:
+  No anchors
+  
+Stacktrace for the failing thread 0x00007f7eae004300:
+  SP 0x00007ff7b4275e90 IP 0x000000010bd20b73  com.oracle.svm.core.code.CodeInfo@0x10defa9b8 name = image code
+  SP 0x00007ff7b4275ea0 IP 0x000000010bd4bc02  [image code] com.oracle.svm.core.reflect.SubstrateMethodAccessor.invoke(SubstrateMethodAccessor.java:59)
+  SP 0x00007ff7b4275eb0 IP 0x000000010c29416c  [image code] java.lang.reflect.Method.invoke(Method.java:566)
+  SP 0x00007ff7b4275eb0 IP 0x000000010c29416c  [image code] net.snowflake.client.jdbc.SnowflakeDriver.disableIllegalReflectiveAccessWarning(SnowflakeDriver.java:85)
+  SP 0x00007ff7b4275ee0 IP 0x000000010c294405  [image code] net.snowflake.client.jdbc.SnowflakeDriver.initializeArrowSupport(SnowflakeDriver.java:64)
+  SP 0x00007ff7b4275ef0 IP 0x000000010c2939fb  [image code] net.snowflake.client.jdbc.SnowflakeDriver.<clinit>(SnowflakeDriver.java:47)
+  SP 0x00007ff7b4275f20 IP 0x000000010bcad96b  [image code] com.oracle.svm.core.classinitialization.ClassInitializationInfo.invokeClassInitializer(ClassInitializationInfo.java:367)
+  SP 0x00007ff7b4275f30 IP 0x000000010bcacb11  [image code] com.oracle.svm.core.classinitialization.ClassInitializationInfo.initialize(ClassInitializationInfo.java:283)
+  SP 0x00007ff7b42760f0 IP 0x000000010bcad59a  [image code] java.lang.Class.ensureInitialized(DynamicHub.java:510)
+  SP 0x00007ff7b42760f0 IP 0x000000010bcad59a  [image code] com.oracle.svm.core.classinitialization.ClassInitializationInfo.initialize(ClassInitializationInfo.java:248)
+  SP 0x00007ff7b42762b0 IP 0x000000010beb5721  [image code] example.Main.main(Main.java:7)
+  SP 0x00007ff7b42762d0 IP 0x000000010bc9aa55  [image code] com.oracle.svm.core.JavaMainWrapper.runCore(JavaMainWrapper.java:150)
+  SP 0x00007ff7b42762d0 IP 0x000000010bc9aa55  [image code] com.oracle.svm.core.JavaMainWrapper.run(JavaMainWrapper.java:186)
+  SP 0x00007ff7b4276300 IP 0x000000010bcbd73d  [image code] com.oracle.svm.core.code.IsolateEnterStub.JavaMainWrapper_run_5087f5482cc9a6abc971913ece43acb471d2631b(IsolateEnterStub.java:0)
+  
+VM mutexes:
+  mutex "thread" is unlocked.
+  mutex "referencePendingList" is unlocked.
+  mutex "mainVMOperationControlWorkQueue" is unlocked.
+  
+Heap settings and statistics:
+  Supports isolates: true
+  Heap base: 0x000000010d800000
+  Object reference size: 8
+  Aligned chunk size: 1048576
+  Incremental collections: 0
+  Complete collections: 0
+  
+Native image heap boundaries:
+  ReadOnly Primitives: 0x000000010d901028 - 0x000000010db0a5a0
+  ReadOnly References: 0x000000010db0a5a0 - 0x000000010dcfa808
+  ReadOnly Relocatables: 0x000000010dcfb000 - 0x000000010de2bd28
+  Writable Primitives: 0x000000010de2c000 - 0x000000010df2fe30
+  Writable References: 0x000000010df2fe30 - 0x000000010e2e87f0
+  Writable Huge: 0x000000010e300030 - 0x000000010e3279e8
+  ReadOnly Huge: 0x000000010e328030 - 0x000000010e5ddd80
+
+Heap:
+  Young generation: 
+    Eden: 
+      edenSpace:
+        aligned: 0/0 unaligned: 0/0
+    Survivors: 
+      Survivor-1 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-1 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-2 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-2 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-3 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-3 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-4 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-4 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-5 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-5 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-6 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-6 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-7 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-7 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-8 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-8 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-9 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-9 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-10 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-10 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-11 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-11 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-12 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-12 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-13 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-13 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-14 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-14 To:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-15 From:
+        aligned: 0/0 unaligned: 0/0
+      Survivor-15 To:
+        aligned: 0/0 unaligned: 0/0
+  Old generation: 
+    oldFromSpace:
+      aligned: 0/0 unaligned: 0/0
+    oldToSpace:
+      aligned: 0/0 unaligned: 0/0
+    
+  Unused:
+    aligned: 0/0
+
+Segfault detected, aborting process. Use runtime option -R:-InstallSegfaultHandler if you don't want to use SubstrateSegfaultHandler.
+
