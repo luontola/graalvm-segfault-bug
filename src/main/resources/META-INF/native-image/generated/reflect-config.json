@@ -1,0 +1,14 @@
+[
+{
+  "name":"jdk.internal.module.IllegalAccessLogger",
+  "fields":[{"name":"logger"}]
+},
+{
+  "name":"sun.misc.Unsafe",
+  "fields":[{"name":"theUnsafe"}],
+  "methods":[
+    {"name":"putObjectVolatile","parameterTypes":["java.lang.Object","long","java.lang.Object"] }, 
+    {"name":"staticFieldOffset","parameterTypes":["java.lang.reflect.Field"] }
+  ]
+}
+]

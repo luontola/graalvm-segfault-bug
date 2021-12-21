@@ -1,0 +1,11 @@
+{
+  "resources":{
+  "includes":[]},
+  "bundles":[{
+      "name":"net.snowflake.client.jdbc.version",
+      "locales":[
+        "", 
+        "und"
+      ]
+    }]
+}
