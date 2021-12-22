@@ -1,5 +1,7 @@
 # GraalVM segfault bug
 
+**Issue:** https://github.com/oracle/graal/issues/4149
+
 [Snowflake JDBC drivers](https://docs.snowflake.com/en/user-guide/jdbc.html) crash when compiled with GraalVM native
 image. The last GraalVM release where it still worked was GraalVM 21.1.0.
 
