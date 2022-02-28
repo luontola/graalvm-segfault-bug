@@ -1,5 +1,7 @@
 # GraalVM segfault bug
 
+**EDIT: snowflake-jdbc 3.13.15 fixes this bug**
+
 **Issue:** https://github.com/oracle/graal/issues/4149
 
 [Snowflake JDBC drivers](https://docs.snowflake.com/en/user-guide/jdbc.html) crash when compiled with GraalVM native
